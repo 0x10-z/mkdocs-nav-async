@@ -177,6 +177,12 @@ class NavAsync(BasePlugin):
                 }
                 }
             });
+
+            const activeLink = document.querySelector(".md-nav__link.active");
+            if (activeLink) {
+                activeLink.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+
         }
 
         document.addEventListener("DOMContentLoaded", function() {
