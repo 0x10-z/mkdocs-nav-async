@@ -36,7 +36,6 @@ class NavAsync(BasePlugin):
             is_enabled = self.config.get(option, False)
             status = "enabled" if is_enabled else "disabled"
             print(f"{option.capitalize()} is {status}")
-        print(f"Path: {self.config.get(self.path)}")
 
     def on_startup(self, command, dirty):
         """
