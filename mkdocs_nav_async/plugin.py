@@ -19,7 +19,6 @@ class NavAsync(BasePlugin):
     config_scheme = (
         (prettify, Type(bool, default=False)),
         (minify, Type(bool, default=False)),
-        (path, Type(str, default="")),
     )
     nav_filename = "@nav.html"
 
