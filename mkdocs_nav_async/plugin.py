@@ -80,7 +80,7 @@ class NavAsync(BasePlugin):
             nav_div[0].set('class', classAttr)
             nav_div[0].set('data-md-scrollfix')
             
-            self.insert_spinner_and_script(nav_div[0], tree, nav_path, self.nav_filename)
+            self.insert_spinner_and_script(nav_div[0], tree, site_url, nav_path, self.nav_filename)
 
         end_time = time.time()
         print(f"Processed {page.file.src_path} in {end_time - start_time:.2f} seconds")
@@ -129,7 +129,7 @@ class NavAsync(BasePlugin):
         print(f"Navigation children saved to: {nav_file_path}")
 
 
-    def insert_spinner_and_script(self, nav_element, tree, nav_path, nav_filename):
+    def insert_spinner_and_script(self, nav_element, tree, site_url, nav_path, nav_filename):
         """
         Inserts a spinner and script into the navigation element to load the navigation content asynchronously.
 
