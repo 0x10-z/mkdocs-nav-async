@@ -15,7 +15,6 @@ from mkdocs.plugins import BasePlugin
 class NavAsync(BasePlugin):
     minify = "minify"
     prettify = "prettify"
-    path = "path"
 
     config_scheme = (
         (prettify, Type(bool, default=False)),
@@ -57,7 +56,6 @@ class NavAsync(BasePlugin):
         site_dir = config.get('site_dir', None)
         prettify = self.config.get('prettify', False)
         minify = self.config.get('minify', False)
-        nav_path = self.config.get(self.path)
         if site_dir is None:
             raise KeyError("The 'site_dir' key is missing in the configuration.")
 
@@ -80,7 +78,7 @@ class NavAsync(BasePlugin):
             nav_div[0].set('class', classAttr)
             nav_div[0].set('data-md-scrollfix')
             
-            self.insert_spinner_and_script(nav_div[0], tree, site_url, nav_path, self.nav_filename)
+            self.insert_spinner_and_script(nav_div[0], tree, site_url, self.nav_filename)
 
         end_time = time.time()
         print(f"Processed {page.file.src_path} in {end_time - start_time:.2f} seconds")
@@ -129,7 +127,7 @@ class NavAsync(BasePlugin):
         print(f"Navigation children saved to: {nav_file_path}")
 
 
-    def insert_spinner_and_script(self, nav_element, tree, site_url, nav_path, nav_filename):
+    def insert_spinner_and_script(self, nav_element, tree, site_url, nav_filename):
         """
         Inserts a spinner and script into the navigation element to load the navigation content asynchronously.
 
@@ -145,7 +143,7 @@ class NavAsync(BasePlugin):
             nav_filename: The filename of the navigation file to load.
         """
         spinner_div = lxml.html.Element("div", id="loading-spinner", style="display:flex;justify-content:center;align-items:center;height:100px;")
-        spinner_img = lxml.html.Element("img", src=f"/{nav_path}/bars-rotate-fade.svg", alt="Loading...", style="width:50px;")
+        spinner_img = lxml.html.Element("img", src=f"{site_url}/bars-rotate-fade.svg", alt="Loading...", style="width:50px;")
         spinner_div.append(spinner_img)
 
         nav_element.append(spinner_div)
@@ -190,7 +188,7 @@ class NavAsync(BasePlugin):
             var navContainer = document.querySelector("ul.md-nav__list");
 
             // Use fetch to load the content of """ + nav_filename + """
-            fetch('/""" + nav_path + "/" + nav_filename +"""')
+            fetch('""" + site_url + "/" + nav_filename +"""')
                 .then(function(response) {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
