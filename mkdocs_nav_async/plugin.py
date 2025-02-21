@@ -160,7 +160,8 @@ class NavAsync(BasePlugin):
 
             navLinks.forEach((link) => {
                 const href = link.getAttribute("href");
-                if (href && currentUrl.includes(href)) {
+                const lastPart = href.split('/').pop();
+                if (href && currentUrl.includes(lastPart)) {
                 link.classList.add("active");
 
                 let parent = link.closest("li");
@@ -186,7 +187,7 @@ class NavAsync(BasePlugin):
             var navContainer = document.querySelector("ul.md-nav__list");
 
             // Use fetch to load the content of """ + nav_filename + """
-            fetch('""" + site_url + "/" + nav_filename +"""')
+            fetch('""" + site_url + nav_filename +"""')
                 .then(function(response) {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
