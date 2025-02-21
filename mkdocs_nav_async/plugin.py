@@ -160,7 +160,7 @@ class NavAsync(BasePlugin):
 
             navLinks.forEach((link) => {
                 const href = link.getAttribute("href");
-                const lastPart = href.split('/').pop();
+                const lastPart = href ? href.split('/').pop() : '';
                 if (href && currentUrl.includes(lastPart)) {
                 link.classList.add("active");
 
